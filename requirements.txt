@@ -1,3 +1,5 @@
 streamlit
 kiteconnect
 pandas
+flask
+python-dotenv
