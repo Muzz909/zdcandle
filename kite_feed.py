@@ -1,8 +1,15 @@
 from kiteconnect import KiteTicker
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
+ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 
 class KiteFeed:
-    def __init__(self, api_key, access_token):
-        self.kws = KiteTicker(api_key, access_token)
+    def __init__(self):
+        self.kws = KiteTicker(API_KEY, ACCESS_TOKEN)
         self.ltp = None
 
     def start(self):
@@ -11,8 +18,7 @@ class KiteFeed:
                 self.ltp = ticks[0]['last_price']
 
         def on_connect(ws, response):
-            # NIFTY 50 token
-            ws.subscribe([256265])
+            ws.subscribe([256265])  # NIFTY
             ws.set_mode(ws.MODE_LTP, [256265])
 
         self.kws.on_ticks = on_ticks
